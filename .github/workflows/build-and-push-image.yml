@@ -31,12 +31,18 @@ jobs:
       - name: Install Ansible Builder
         run: pip install ansible-builder
 
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+
       - name: Build EE
         run: |
           ansible-builder build \
             --container-runtime docker \
-            --tag ghcr.io/${{ github.repository }}:latest
+            --tag "${{ steps.meta.outputs.tags }}"
 
       - name: Push EE
         run: |
-          docker push ghcr.io/${{ github.repository }}:latest
+          docker push "${{ steps.meta.outputs.tags }}"
