@@ -5,8 +5,13 @@ images:
     name: registry.fedoraproject.org/fedora:43
 
 dependencies:
+  python_interpreter:
+    package_system: python3
+    python_path: /usr/bin/python3
+
   ansible_core:
     package_pip: ansible-core==2.16.19
+
   ansible_runner:
     package_pip: ansible-runner
 
